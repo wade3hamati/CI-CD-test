@@ -16,8 +16,8 @@ jobs:
       - name: Enforce branch naming
         run: |
           branch_name=$(echo $GITHUB_REF | sed 's|.*/||')
-          if [[ ! $branch_name =~ ^[0-9]+[a-zA-Z_-]+[a-zA-Z_-]*$ ]]; then
-            echo "Invalid branch name. It should match the pattern: <issue number><feature name><sprint name>"
+          if [[ ! $branch_name =~ ^[0-9]+[a-zA-Z_-]+[0-9]+$ ]]; then
+            echo "Invalid branch name. It should match the pattern: <issue number><feature name><sprint number>"
             exit 1
           fi
 
