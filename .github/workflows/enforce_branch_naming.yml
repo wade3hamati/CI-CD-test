@@ -1,21 +1,18 @@
-name: Enforce Branch Naming
+name: Enforce Branch Creation Criteria
 
 on:
-  push:
+  create:
     branches:
       - '*'
 
 jobs:
-  enforce_branch_naming:
+  enforce_branch_creation_criteria:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Enforce branch naming
+      - name: Check branch name
         run: |
-          branch_name=$(echo $GITHUB_REF | sed 's|.*/||')
+          branch_name=${GITHUB_REF#refs/heads/}
           if [[ ! $branch_name =~ ^[0-9]+[a-zA-Z_-]+[0-9]+$ ]]; then
             echo "Invalid branch name. It should match the pattern: <issue number><feature name><sprint number>"
             exit 1
